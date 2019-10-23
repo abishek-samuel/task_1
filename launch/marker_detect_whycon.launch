@@ -14,7 +14,7 @@
     <param name="outer_diameter" value="$(arg outer_diameter)"/>
     <param name="inner_diameter" value="$(arg inner_diameter)"/> 
 
-    <!-- Remap the topics to the corresponding topics -->
+    <!-- Uncomment and remap the topics to the corresponding topics. .launch files are treated as XML files and uncommenting follows the same convetions -->
 <!--     <remap from="/camera/camera_info" to=""/>
     <remap from="/camera/image_rect_color" to=""/> -->
   </node>
