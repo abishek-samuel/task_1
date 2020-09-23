@@ -6,26 +6,26 @@ import tf
 
 from geometry_msgs.msg import PoseArray
 
-#Defining a class
-class Marker_detect():
+
+
+#Define a class
+class Whycon_detect():
 
 	def __init__(self):
-		rospy.init_node('marker_detection',anonymous=False) # initializing a ros node with name marker_detection
+		rospy.init_node('whycon_detection', anonymous = True)
+    		rospy.Subscriber('/whycon/poses', PoseArray, self.callback)
 
-		self.whycon_marker = {}	# Declaring dictionaries
+	def callback(self,received_data):
+		whycon_coordinates=dict()		
+ 		rec_posesdata=received_data.poses
+		for i in range(len(rec_posesdata)):
+			pos_list=list()
+			pos_list.extend((round(rec_posesdata[i].position.x,3),round(rec_posesdata[i].position.y,3),round(rec_posesdata[i].position.z,3)))
+			whycon_coordinates[i]=pos_list
+    		#rospy.loginfo(whycon_coordinates)	
+		print(whycon_coordinates)
 	
-		rospy.Subscriber('/whycon/poses',PoseArray,self.whycon_data)	# Subscribing to topic
-
-	# Callback for /whycon/poses
-	# Please fill in the function
-	def whycon_data(self,msg):
-
-
-		# Printing the detected markers on terminal
-		print(self.whycon_marker)
-
-
 if __name__=="__main__":
-	marker = Marker_detect()
+	marker = Whycon_detect()
 	while not rospy.is_shutdown():
 		rospy.spin()
